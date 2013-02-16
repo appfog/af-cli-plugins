@@ -116,11 +116,12 @@ class ManifestsPlugin < VMC::App::Base
 
   def push_input_for(app_manifest, input)
     existing_app = client.app_by_name(app_manifest[:name])
+    rebased_input = input.rebase_given(app_manifest)
 
     if !existing_app || input[:reset]
-      input = input.rebase_given(app_manifest)
+      input = rebased_input
     else
-      warn_reset_changes if manifest_differs?(existing_app, input)
+      warn_reset_changes if manifest_differs?(existing_app, rebased_input)
     end
 
     input.merge(

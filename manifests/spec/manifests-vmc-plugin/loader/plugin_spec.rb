@@ -220,33 +220,6 @@ describe ManifestsPlugin do
                 subject
               end
             end
-
-            context "and --reset was NOT given" do
-              let(:given_hash) { { :name => "a", :instances => "100" } }
-
-              context "and the app settings differ" do
-                let(:app) { fake :app, :name => "a", :memory => 256 }
-
-                it "tells the user to use --reset to apply changes" do
-                  mock(plugin).warn_reset_changes
-                  mock(wrapped).call(anything) do |inputs|
-                    expect(inputs.given).to eq(
-                      :name => "a", :instances => "100")
-                  end
-                  subject
-                end
-              end
-
-              it "does not add the manifest's values to the inputs" do
-                stub(plugin).warn_reset_changes
-                mock(wrapped).call(anything) do |inputs|
-                  expect(inputs.given).to eq(
-                    :name => "a", :instances => "100")
-                end
-
-                subject
-              end
-            end
           end
 
           context "and the app does NOT exist" do
@@ -321,6 +294,71 @@ describe ManifestsPlugin do
         mock_ask("Save configuration?", :default => false)
         stub(wrapped).call { plugin.filter(:push_app, app) }
         subject
+      end
+    end
+  end
+
+  describe "#push_input_for" do
+    context "with an existing app" do
+      before do
+        stub(plugin).from_manifest { "PATH" }
+        app.changes.clear
+      end
+
+      let(:client) { fake_client(:apps => [app]) }
+      let(:manifest_memory) { "256M" }
+      let(:app) { fake :app, :name => "a", :memory => 256 }
+      let(:manifest) { { :name => "a", :memory => manifest_memory } }
+
+      subject { plugin.send(:push_input_for, manifest, inputs) }
+
+      context "with --reset" do
+        let(:inputs_hash) { { :reset => true } }
+
+        context "with changes" do
+          let(:manifest_memory) { "128M" }
+
+          it "applies the changes" do
+            subject[:memory].should == "128M"
+          end
+
+          it "does not ask to set --reset" do
+            dont_allow(plugin).warn_reset_changes
+            subject
+          end
+        end
+
+        context "without changes" do
+          it "does not ask to set --reset" do
+            dont_allow(plugin).warn_reset_changes
+            subject
+          end
+        end
+      end
+
+      context "without --reset" do
+        let(:inputs_hash) { {} }
+
+        context "with changes" do
+          let(:manifest_memory) { "128M" }
+
+          it "asks user to provide --reset" do
+            mock(plugin).warn_reset_changes
+            subject
+          end
+
+          it "does not apply changes" do
+            stub(plugin).warn_reset_changes
+            subject[:memory].should == nil
+          end
+        end
+
+        context "without changes" do
+          it "does not ask to set --reset" do
+            dont_allow(plugin).warn_reset_changes
+            subject
+          end
+        end
       end
     end
   end

@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe VMCTunnel::Tunnel do
+describe AFTunnel::Tunnel do
   describe "#tunnel_clients" do
     context "when the user has a custom clients.yml in their vmc directory" do
       use_fake_home_dir { "#{SPEC_ROOT}/fixtures/fake_home_dirs/with_custom_clients" }

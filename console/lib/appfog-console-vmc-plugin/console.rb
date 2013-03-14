@@ -4,7 +4,7 @@ require "readline"
 require "appfog-tunnel-vmc-plugin/tunnel"
 
 
-class CFConsole < CFTunnel
+class CFConsole < AFTunnel
   def initialize(client, app, port = 10000)
     @client = client
     @app = app

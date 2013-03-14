@@ -9,7 +9,7 @@ require "appfog-tunnel-vmc-plugin/version"
 
 Gem::Specification.new do |s|
   s.name        = "appfog-tunnel-vmc-plugin"
-  s.version     = VMCTunnel::VERSION.dup
+  s.version     = AFCLITunnel::VERSION.dup
   s.authors     = ["Alex Suraci, Tim Santeford"]
   s.email       = ["support@appfog.com"]
   s.homepage    = "http://appfog.com/"

@@ -16,7 +16,7 @@ task :build do
 end
 
 task :install => :build do
-  sh "gem install --local appfog-tunnel-vmc-plugin-#{VMCTunnel::VERSION}.gem"
+  sh "gem install --local appfog-tunnel-vmc-plugin-#{AFTunnel::VERSION}.gem"
 end
 
 task :uninstall do
@@ -26,7 +26,7 @@ end
 task :reinstall => [:uninstall, :install]
 
 task :release => :build do
-  sh "gem push appfog-tunnel-vmc-plugin-#{VMCTunnel::VERSION}.gem"
+  sh "gem push appfog-tunnel-vmc-plugin-#{AFTunnel::VERSION}.gem"
 end
 
 namespace "bundler" do

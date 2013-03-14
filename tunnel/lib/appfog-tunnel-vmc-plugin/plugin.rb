@@ -1,7 +1,7 @@
 require "vmc/cli"
 require "appfog-tunnel-vmc-plugin/tunnel"
 
-module VMCTunnel
+module AFCLITunnel
   class Tunnel < VMC::CLI
     CLIENTS_FILE = "#{VMC::CONFIG_DIR}/tunnel-clients.yml"
     STOCK_CLIENTS = File.expand_path("../../../config/clients.yml", __FILE__)
@@ -33,7 +33,7 @@ module VMCTunnel
       clients = tunnel_clients[vendor] || {}
       client_name = input[:client, clients]
 
-      tunnel = CFTunnel.new(client, instance)
+      tunnel = AFTunnel.new(client, instance)
       port = tunnel.pick_port!(input[:port])
 
       conn_info =

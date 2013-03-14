@@ -5,7 +5,7 @@ require "uuidtools"
 require "caldecott-client"
 
 
-class CFTunnel
+class AFTunnel
   HELPER_NAME = "caldecott"
   HELPER_APP = File.expand_path("../../../helper-app", __FILE__)
 

@@ -2,6 +2,16 @@ require "rake"
 
 task :default => :spec
 
+desc "Uninstall"
+task :uninstall do
+  %w{admin console tunnel}.each do |plugin|
+    sh "gem uninstall appfog-#{plugin}-vmc-plugin"
+  end
+  %w{appfog mcf manifests}.each do |plugin|
+    sh "gem uninstall #{plugin}-vmc-plugin"
+  end
+end
+
 desc "Run specs"
 task :spec do
   %w{manifests mcf console tunnel}.each do |plugin|

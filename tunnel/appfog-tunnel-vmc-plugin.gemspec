@@ -4,8 +4,9 @@
 # WARNING: Separate from the Gemfile. Please update both files
 #############
 
-$:.push File.expand_path("../lib", __FILE__)
-require "appfog-tunnel-vmc-plugin/version"
+# $:.push File.expand_path("../lib", __FILE__)
+# require "appfog-tunnel-vmc-plugin/version"
+require File.expand_path("../lib/appfog-tunnel-vmc-plugin/version", __FILE__)
 
 Gem::Specification.new do |s|
   s.name        = "appfog-tunnel-vmc-plugin"

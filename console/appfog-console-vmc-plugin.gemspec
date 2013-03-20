@@ -4,8 +4,7 @@
 # WARNING: Separate from the Gemfile. Please update both files
 #############
 
-$:.push File.expand_path("../lib", __FILE__)
-require "appfog-console-vmc-plugin/version"
+require File.expand_path("../lib/appfog-console-vmc-plugin/version", __FILE__)
 
 Gem::Specification.new do |s|
   s.name        = "appfog-console-vmc-plugin"

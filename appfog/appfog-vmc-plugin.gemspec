@@ -4,8 +4,7 @@
 # WARNING: Separate from the Gemfile. Please update both files
 #############
 
-$:.push File.expand_path("../lib", __FILE__)
-require "appfog-vmc-plugin/version"
+require File.expand_path("../lib/appfog-vmc-plugin/version", __FILE__)
 
 Gem::Specification.new do |s|
   s.name        = "appfog-vmc-plugin"
@@ -23,5 +22,5 @@ Gem::Specification.new do |s|
   s.test_files    = Dir.glob("spec/**/*")
   s.require_paths = ["lib"]
 
-  s.add_runtime_dependency "cfoundry", "~> 0.5.0"
+  s.add_runtime_dependency "cfoundry", "~> 0.5.2"
 end

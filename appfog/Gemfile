@@ -5,7 +5,6 @@ source "http://rubygems.org"
 #############
 
 gem "cfoundry"
-gem "vmc"
 
 group :development, :test do
   gem "rake"

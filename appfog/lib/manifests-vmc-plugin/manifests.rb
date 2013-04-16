@@ -148,6 +148,7 @@ module VMCManifests
   def create_manifest_for(app, path)
     meta = {
       "name" => app.name,
+      "infra" => app.infra.name,
       "framework" => app.framework.name,
       "runtime" => app.runtime.name,
       "memory" => human_size(app.memory * 1024 * 1024, 0),
@@ -174,6 +175,7 @@ module VMCManifests
           }
         else
           meta["services"][i.name] = {
+            "infra" => i.infra.name,
             "vendor" => i.vendor,
             "version" => i.version,
             "tier" => i.tier

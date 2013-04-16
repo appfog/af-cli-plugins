@@ -4,6 +4,8 @@ require "appfog-vmc-plugin/cfoundry"
 require "appfog-vmc-plugin/vmc"
 require "appfog-vmc-plugin/help"
 require "appfog-vmc-plugin/net_http"
+require "manifests-vmc-plugin/plugin"
+
 
 command_files = "../deprecated/**/*.rb"
 Dir[File.expand_path(command_files, __FILE__)].each do |file|

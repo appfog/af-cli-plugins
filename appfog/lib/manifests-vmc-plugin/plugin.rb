@@ -1,7 +1,7 @@
 require "pathname"
 
 require "vmc/plugin"
-require "manifests-vmc-plugin"
+require "manifests-vmc-plugin/manifests"
 
 
 class ManifestsPlugin < VMC::App::Base

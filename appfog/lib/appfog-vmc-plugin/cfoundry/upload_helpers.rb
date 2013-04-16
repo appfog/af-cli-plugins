@@ -7,7 +7,7 @@ module CFoundry
       elsif war_file = Dir.glob("#{path}/*.war").first
         CFoundry::Zip.unpack(war_file, to)
       else
-        check_unreachable_links(path)
+        #check_unreachable_links(path)
 
         FileUtils.mkdir(to)
 

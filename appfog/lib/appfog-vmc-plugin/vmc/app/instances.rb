@@ -17,7 +17,7 @@ module VMC::App
         inst = input[:inst, app.total_instances]
       end
 
-      app.total_instances = inst if input.has?(:inst)
+      app.total_instances = inst.to_i if input.has?(:inst)
       fail "No changes!" unless app.changed?
 
       with_progress("Scaling #{c(app.name, :name)}") do

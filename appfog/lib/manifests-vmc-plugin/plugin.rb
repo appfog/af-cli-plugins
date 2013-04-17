@@ -70,6 +70,7 @@ class ManifestsPlugin < VMC::App::Base
     app.total_instances = input[:instances] if input.has?(:instances)
     app.command = input[:command] if input.has?(:command)
     app.production = input[:plan].upcase.start_with?("P") if input.has?(:plan)
+    app.infra = input[:infra] if input.has?(:infra)
     app.framework = input[:framework] if input.has?(:framework)
     app.runtime = input[:runtime] if input.has?(:runtime)
     app.buildpack = input[:buildpack] if input.has?(:buildpack)
@@ -136,9 +137,8 @@ class ManifestsPlugin < VMC::App::Base
   end
 
   def create_and_save_manifest(push, input)
-
     with_filters(
-        :push => { :create_app => proc { |a| ask_to_save(input, a); a } }) do
+        :push => { :push_app => proc { |a| ask_to_save(input, a); a } }) do
       push.call
     end
   end

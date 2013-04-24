@@ -25,7 +25,10 @@ module CFoundry::V1
     end
 
     def infra_by_name(name)
-      infras.find { |i| i.name == name }
+      if name == "none"
+        return Infra.new("none", "none", "No infra selected", "no-infra.af.cm", "none", "none")
+      end
+      infras.find { |i| i.name == name } unless name.nil?
     end
 
     # Added to support downloads
@@ -51,7 +54,13 @@ module CFoundry::V1
     def services(options = {})
       services = []
 
-      @base.system_services.each do |infra, infra_services|
+      service_instances = @base.system_services
+
+      if options[:infras] != true
+        service_instances = { none: service_instances }
+      end
+
+      service_instances.each do |infra, infra_services|
         infra_services.each do |type, vendors|
           vendors.each do |vendor, providers|
             providers.each do |provider, properties|

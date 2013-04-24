@@ -48,5 +48,25 @@ module CFoundry
         end
       end
     end
+
+    def prune_empty_directories(path)
+      all_files = Dir["#{path}/**/{*,.*}"]
+      all_files.reject! { |fn| fn =~ /\/\.+$/ }
+
+      directories = all_files.select { |x| File.directory?(x) }
+      directories.sort! { |a, b| b.size <=> a.size }
+
+      directories.each do |directory|
+        entries = Dir.entries(directory) - %w{. ..}
+        if entries.empty?
+          # Better handling of symlinks
+          if !File.symlink?(directory)
+            FileUtils.rmdir(directory)
+          else
+            File.unlink(directory)
+          end
+        end
+      end
+    end
   end
 end
